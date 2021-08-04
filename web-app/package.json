@@ -1,0 +1,12 @@
+{
+  "name": "web-app",
+  "version": "1.0.0",
+  "description": "It's a web app for contacts project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Nikita Kiselev",
+  "license": "MIT"
+}
