@@ -1,0 +1,30 @@
+{
+  "name": "contacts-test-app",
+  "version": "1.0.0",
+  "description": "It's a test app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "commit": "cz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NikitaKis/contacts-test-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NikitaKis/contacts-test-app/issues"
+  },
+  "homepage": "https://github.com/NikitaKis/contacts-test-app#readme",
+  "devDependencies": {
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.2.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
