@@ -1,3 +1,3 @@
 # Contacts api
 
-It's a backend for contacts app.
+It's a backend for contacts project.
