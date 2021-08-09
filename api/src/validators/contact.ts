@@ -10,13 +10,12 @@ const checkContact = (body) => [
 ];
 
 const checkIdInParam = (param) => [param('id').isInt().withMessage('Missing id in params.')];
-export const getContact = (param) => checkIdInParam(param)
-};
+export const getContact = (param) => checkIdInParam(param);
 
 export const createContact = (body) => checkContact(body);
 
-export const removeContact = (param) => checkIdInParam(param)
-};
+export const removeContact = (param) => checkIdInParam(param);
+
 export const updateContact = (body, param) => {
   return [...checkContact(body), ...checkIdInParam(param)];
 };
