@@ -5,6 +5,7 @@ import helmet from 'helmet';
 
 import { contactsRouter } from 'routes';
 import { fillDBWithFakeData } from 'models/fakeDB';
+import AppError from 'utils/appError';
 
 dotenv.config();
 
@@ -24,4 +25,20 @@ app.use('/contacts', contactsRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
+});
+
+app.all('*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
+
+process.on('uncaughtException', (error: Error) => {
+  console.log(error.name, error.message);
+  console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (error: Error) => {
+  console.log(error.name, error.message);
+  console.log('UNHANDLED REJECTION! 💥 Shutting down...');
+  process.exit(1);
 });
