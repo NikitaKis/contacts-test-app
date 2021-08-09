@@ -31,7 +31,10 @@ const update = async (id: ContactId, contactUpdate: Contact): Promise<Contact> =
   if (updateIndex < 0) {
     throw new Error(`Contact with id #${id} not found.`);
   }
-  contacts[updateIndex] = contactUpdate;
+  contacts[updateIndex] = {
+    ...contactUpdate,
+    id,
+  };
   return contacts[updateIndex];
 };
 

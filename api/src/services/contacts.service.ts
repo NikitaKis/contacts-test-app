@@ -8,4 +8,12 @@ const findById = async (id: ContactId): Promise<Contact | undefined> => {
   return contactsModel.find(id);
 };
 
-export { create, findAll, findById };
+const removeById = async (id: ContactId): Promise<boolean> => {
+  return contactsModel.remove(id);
+};
+
+const update = async (id: ContactId, contact: Contact): Promise<Contact> => {
+  return contactsModel.update(id, contact);
+};
+
+export { create, findAll, findById, removeById, update };

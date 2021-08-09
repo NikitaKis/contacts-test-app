@@ -3,7 +3,7 @@ import { validationResult, ValidationChain, ValidationError } from 'express-vali
 import AppError from 'utils/appError';
 
 const errorFormatter = ({ location, msg, param, value, nestedErrors }: ValidationError) => {
-  return `${location}[${param}]: ${msg}`;
+  return `${param}: ${msg}`;
 };
 
 const validate = (validations: ValidationChain[]) => {
