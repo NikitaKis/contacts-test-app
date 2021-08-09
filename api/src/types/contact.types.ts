@@ -7,8 +7,9 @@ interface BaseContact {
   email: string;
 }
 
+type ContactId = number;
 interface Contact extends BaseContact {
-  id: number;
+  id: ContactId;
 }
 
-export { BaseContact, Contact };
+export { BaseContact, Contact, ContactId };

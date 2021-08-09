@@ -1,7 +1,7 @@
-import { BaseContact, Contact } from 'types/contact.types';
+import { BaseContact, Contact, ContactId } from 'types/contact.types';
 import contacts from './fakeDB';
 
-const findIndexById = (id: number): number => contacts.findIndex((item) => item.id === id);
+const findIndexById = (id: ContactId): number => contacts.findIndex((item) => item.id === id);
 
 const create = async (newContact: BaseContact): Promise<Contact> => {
   const newId = contacts.length;
@@ -13,11 +13,11 @@ const create = async (newContact: BaseContact): Promise<Contact> => {
   return contact;
 };
 
-const find = async (id: number): Promise<Contact | undefined> => contacts.find((item: Contact) => item.id === id);
+const find = async (id: ContactId): Promise<Contact | undefined> => contacts.find((item: Contact) => item.id === id);
 
 const findAll = async (): Promise<Contact[]> => contacts;
 
-const remove = async (id: number): Promise<boolean> => {
+const remove = async (id: ContactId): Promise<boolean> => {
   const removeIndex = findIndexById(id);
   if (removeIndex < 0) {
     throw new Error(`Contact with id #${id} not found.`);
@@ -26,7 +26,7 @@ const remove = async (id: number): Promise<boolean> => {
   return true;
 };
 
-const update = async (id: number, contactUpdate: Contact): Promise<Contact> => {
+const update = async (id: ContactId, contactUpdate: Contact): Promise<Contact> => {
   const updateIndex = findIndexById(id);
   if (updateIndex < 0) {
     throw new Error(`Contact with id #${id} not found.`);

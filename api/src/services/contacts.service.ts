@@ -1,6 +1,10 @@
 import { contactsModel } from 'models';
-import { Contact } from 'types/contact.types';
+import { Contact, ContactId } from 'types/contact.types';
 
 const findAll = async (): Promise<Contact[]> => contactsModel.findAll();
 
-export { findAll };
+const findById = async (id: ContactId): Promise<Contact | undefined> => {
+  return contactsModel.find(id);
+};
+
+export { findAll, findById };
