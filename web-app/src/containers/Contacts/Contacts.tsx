@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import Table from './Table';
 
 import useContacts from '../../hooks/useContacts';
@@ -20,13 +20,19 @@ const Contacts = (): JSX.Element | null => {
   const { data, refetch, createContact, removeContact, updateContact } = useContacts(page, pageSize);
   const [errors, setErrors] = useState<string[] | null>(null);
 
-  const onDelete = (contactId: ContactId) => {
-    removeContact(contactId);
-    refetch();
-  };
-  const onEdit = (contact: Contact) => {
-    setCurrentContact(contact);
-  };
+  const onDelete = useCallback(
+    (contactId: ContactId) => {
+      removeContact(contactId);
+      refetch();
+    },
+    [removeContact, refetch]
+  );
+  const onEdit = useCallback(
+    (contact: Contact) => {
+      setCurrentContact(contact);
+    },
+    [setCurrentContact]
+  );
   const onCreateContact = async (contact: BaseContact) => {
     try {
       setErrors(null);
@@ -92,7 +98,7 @@ const Contacts = (): JSX.Element | null => {
         ),
       },
     ],
-    []
+    [onEdit, onDelete]
   );
 
   const tableData = useMemo(() => {
