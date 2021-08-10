@@ -17,15 +17,21 @@ type Options = {
   cancelToken?: CancelToken;
 };
 
-const unAuthRequest = (options: Options, params?: Params) => {
-  return axios({
-    ...options,
-    method: options.method || 'get',
-    baseURL: API_URL,
-    params: {
-      ...params,
-    },
-  });
+const unAuthRequest = async (options: Options, params?: Params) => {
+  try {
+    const res = await axios({
+      ...options,
+      method: options.method || 'get',
+      baseURL: API_URL,
+      params: {
+        ...params,
+      },
+    });
+    if (res && res.data.success) return res;
+    throw res;
+  } catch (error) {
+    throw error.response.data.error;
+  }
 };
 
 export { unAuthRequest };
