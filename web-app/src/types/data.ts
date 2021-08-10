@@ -10,12 +10,15 @@ export interface Address {
   city: string;
   stateProvince: string;
 }
-export interface Contact {
-  id: ContactId;
+export interface BaseContact {
   name: string;
   address: Address;
   phoneNumber: string;
   email: string;
+}
+
+export interface Contact extends BaseContact {
+  id: ContactId;
 }
 
 export interface FindAllContactsResponse {

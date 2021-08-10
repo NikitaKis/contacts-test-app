@@ -12,7 +12,7 @@ interface Props {
   totalItems?: number;
 }
 //@ts-ignore
-function Table({ columns, data, onNextPage, hasMore, onPrevPage, page, totalPages }: Props): ReactElement {
+function Table({ columns, data, onNextPage, hasMore, onPrevPage, page, totalPages = 0 }: Props): ReactElement {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
 
   return (
@@ -55,7 +55,7 @@ function Table({ columns, data, onNextPage, hasMore, onPrevPage, page, totalPage
           {'<'}
         </button>
         {`  Page ${page + 1} of ${totalPages}  `}
-        <button onClick={onNextPage} disabled={!hasMore}>
+        <button onClick={onNextPage} disabled={page + 1 >= totalPages}>
           {'>'}
         </button>
       </div>

@@ -9,7 +9,10 @@
 .row {
   flex-direction: row;
   display: flex;
-  justify-content: space-around;
+}
+.header {
+  justify-content: space-between;
+  align-items: center;
 }
 .buttonsContainer {
   flex-direction: row;
@@ -22,7 +25,9 @@
 .modalContainer {
   padding: 35px;
 }
-
+.inputsContainer {
+  justify-content: space-around;
+}
 .input {
   display: block;
   font-size: 16px;
@@ -33,4 +38,19 @@
   border-radius: 4px;
   margin-top: 4px;
   margin-bottom: 12px;
+}
+.addButton {
+  display: block;
+  font-size: 16px;
+  font-family: inherit;
+  padding: 0em 2em;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  height: 40px;
+  cursor: pointer;
+}
+.error {
+  font-size: 11px;
+  color: red;
 }

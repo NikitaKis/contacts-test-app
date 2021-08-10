@@ -2,9 +2,10 @@ import { useState, useMemo } from 'react';
 import Table from './Table';
 
 import useContacts from '../../hooks/useContacts';
-import { Address, Contact, ContactId } from '../../types/data';
+import { Address, BaseContact, Contact, ContactId } from '../../types/data';
 import './styles.css';
 import { EditContact } from './EditContact';
+import { AddContact } from './AddContact';
 
 const addressToString = (address: Address) => {
   const { houseNumber, streetName, city, stateProvince } = address;
@@ -12,11 +13,13 @@ const addressToString = (address: Address) => {
 };
 const Contacts = (): JSX.Element | null => {
   const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
+  //const [pageSize, setPageSize] = useState(10); //TODO: add changing page size
+  const pageSize = 10;
   const [currentContact, setCurrentContact] = useState<Contact | null>(null);
-  const { data, refetch, removeContact, updateContact } = useContacts(page, pageSize);
+  const [isNewFormVisible, setIsNewFormVisible] = useState(false);
+  const { data, refetch, createContact, removeContact, updateContact } = useContacts(page, pageSize);
+  const [errors, setErrors] = useState<string[] | null>(null);
 
-  //@ts-ignore
   const onDelete = (contactId: ContactId) => {
     removeContact(contactId);
     refetch();
@@ -24,12 +27,29 @@ const Contacts = (): JSX.Element | null => {
   const onEdit = (contact: Contact) => {
     setCurrentContact(contact);
   };
+  const onCreateContact = async (contact: BaseContact) => {
+    try {
+      setErrors(null);
+      await createContact(contact);
+      setIsNewFormVisible(false);
+      refetch();
+    } catch (error) {
+      setErrors(error.errors);
+    }
+  };
   const onCloseModal = () => {
     setCurrentContact(null);
   };
-  const onUpdateContact = (contact: Contact) => {
+
+  const onToggleNewFormModal = () => {
+    setErrors(null);
+    setIsNewFormVisible((oldValue) => !oldValue);
+  };
+
+  const onUpdateContact = (contact: BaseContact) => {
+    if (!currentContact) return null;
+    updateContact(currentContact?.id, contact);
     onCloseModal();
-    updateContact(contact);
   };
   const columns = useMemo(
     () => [
@@ -85,7 +105,13 @@ const Contacts = (): JSX.Element | null => {
 
   return (
     <div className='container'>
-      <h1>Contacts</h1>
+      <div className='row header'>
+        <h1>Contacts ({data?.totalItems || 0})</h1>
+        <button className='addButton' onClick={onToggleNewFormModal}>
+          Add
+        </button>
+      </div>
+
       <Table
         data={tableData}
         columns={columns}
@@ -96,7 +122,8 @@ const Contacts = (): JSX.Element | null => {
         totalItems={data?.totalItems}
         totalPages={data?.totalPages}
       />
-      <EditContact isVisible={!!currentContact} onClose={onCloseModal} contact={currentContact} onSubmit={onUpdateContact} />
+      <EditContact isVisible={!!currentContact} onClose={onCloseModal} contact={currentContact} onSubmit={onUpdateContact} errors={errors} />
+      <AddContact isVisible={isNewFormVisible} onClose={onToggleNewFormModal} onSubmit={onCreateContact} errors={errors} />
     </div>
   );
 };

@@ -1,21 +1,21 @@
 import Modal from '../../components/Modal';
-import { BaseContact, Contact } from '../../types/data';
+import { BaseContact } from '../../types/data';
 import Form from './Form';
+
 interface Props {
   isVisible: boolean;
   onClose: () => void;
-  contact: Contact | null;
   onSubmit: (contact: BaseContact) => void;
   errors: string[] | null;
 }
 
-export const EditContact = (props: Props) => {
-  const { isVisible, onClose, onSubmit, contact, errors } = props;
+export const AddContact = (props: Props) => {
+  const { isVisible, onClose, onSubmit, errors } = props;
   return (
     <Modal isVisible={isVisible} handleClose={onClose}>
       <div className='modalContainer'>
-        <h2>Edit contact</h2>
-        <Form onSubmit={onSubmit} contact={contact} errors={errors} />
+        <h2>Add contact</h2>
+        <Form onSubmit={onSubmit} buttonText='Create' errors={errors} />
       </div>
     </Modal>
   );

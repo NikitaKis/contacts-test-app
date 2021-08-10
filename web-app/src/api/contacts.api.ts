@@ -1,4 +1,4 @@
-import { Contact, ContactId } from '../types/data';
+import { BaseContact, ContactId } from '../types/data';
 import { unAuthRequest } from './utils/request';
 
 const getContacts = (page: number = 0, pageSize: number = 10) => {
@@ -8,7 +8,15 @@ const getContacts = (page: number = 0, pageSize: number = 10) => {
   });
 };
 
-const updateContact = (contactId: ContactId, contact: Contact) => {
+const createContact = (contact: BaseContact) => {
+  return unAuthRequest({
+    method: 'POST',
+    url: `/contacts`,
+    data: contact,
+  });
+};
+
+const updateContact = (contactId: ContactId, contact: BaseContact) => {
   return unAuthRequest({
     method: 'PUT',
     url: `/contacts/${contactId}`,
@@ -23,4 +31,4 @@ const removeContact = (contactId: ContactId) => {
   });
 };
 
-export { getContacts, removeContact, updateContact };
+export { getContacts, createContact, updateContact, removeContact };
