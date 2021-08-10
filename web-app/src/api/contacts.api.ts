@@ -1,10 +1,18 @@
+import { ContactId } from '../types/data';
 import { unAuthRequest } from './utils/request';
 
-const getContacts = () => {
+const getContacts = (page: number = 0, pageSize: number = 10) => {
   return unAuthRequest({
     method: 'GET',
-    url: '/contacts',
+    url: `/contacts?page=${page}&pageSize=${pageSize}`,
   });
 };
 
-export { getContacts };
+const removeContact = (contactId: ContactId) => {
+  return unAuthRequest({
+    method: 'DELETE',
+    url: `/contacts/${contactId}`,
+  });
+};
+
+export { getContacts, removeContact };

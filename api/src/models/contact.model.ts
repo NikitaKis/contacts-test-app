@@ -17,13 +17,14 @@ const create = async (newContact: BaseContact): Promise<Contact> => {
 const find = async (id: ContactId): Promise<Contact | undefined> => contacts.find((item: Contact) => item.id === id);
 
 const findAll = async (page: number, pageSize: number): Promise<FindAllContactsResponse> => {
-  const total = contacts.length;
-  const lastItemIndex = total - 1;
-  const startIndex = (page - 1) * pageSize;
+  const totalItems = contacts.length;
+  const lastItemIndex = totalItems - 1;
+  const startIndex = page * pageSize;
   const endIndex = Math.min(lastItemIndex, startIndex + pageSize);
   const data = startIndex <= lastItemIndex ? contacts.slice(startIndex, endIndex) : [];
-  const hasMore = startIndex <= lastItemIndex && endIndex <= lastItemIndex;
-  return { data, total, hasMore };
+  const hasMore = startIndex < lastItemIndex && endIndex < lastItemIndex;
+  const totalPages = Math.ceil(contacts.length / pageSize);
+  return { data, totalItems, hasMore, totalPages };
 };
 
 const remove = async (id: ContactId): Promise<boolean> => {

@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Contacts from './containers/Contacts';
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 const App = () => {
   return (

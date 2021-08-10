@@ -22,7 +22,7 @@ const find = catchAsync(async (req: Request, res: Response, next: NextFunction) 
 });
 
 const findAll = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-  const page = +`${req?.query?.page}` || 1;
+  const page = +`${req?.query?.page}` || 0;
   const pageSize = +`${req?.query?.pageSize}` || 10;
   const result: FindAllContactsResponse = await contactsService.findAll(page, pageSize);
   if (!result) return next(new AppError('Contacts not found', 404));

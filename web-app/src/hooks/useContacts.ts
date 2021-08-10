@@ -1,23 +1,31 @@
 import { useQuery } from 'react-query';
 import { contacts as api } from '../api';
 import constants from '../constants';
-import { DataQueryKey, Contact } from '../types/data';
+import { ContactId, DataQueryKey, FindAllContactsResponse } from '../types/data';
+import { queryClient } from '../App';
+const transformData = (data: FindAllContactsResponse): FindAllContactsResponse => data;
 
-const transformData = (contacts: Contact[]): Contact[] => contacts;
-
-export const queryParams = () => {
+export const queryParams = (page: number, pageSize: number) => {
   return {
-    queryKey: DataQueryKey.Contacts,
+    queryKey: [DataQueryKey.Contacts, page],
     queryFn: async () => {
-      const data = await api.getContacts();
-      return transformData(data.data);
+      const data = await api.getContacts(page, pageSize);
+      return transformData(data.data.data);
     },
     staleTime: constants.CACHE_TIME_MSEC,
   };
 };
 
-const useContacts = () => {
-  return useQuery(queryParams());
+const removeContact = async (contactId: ContactId) => {
+  await api.removeContact(contactId);
+  queryClient.invalidateQueries();
+};
+
+const useContacts = (page: number, pageSize: number) => {
+  return {
+    ...useQuery(queryParams(page, pageSize)),
+    removeContact,
+  };
 };
 
 export default useContacts;

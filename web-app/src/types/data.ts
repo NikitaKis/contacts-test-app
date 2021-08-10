@@ -17,3 +17,10 @@ export interface Contact {
   phoneNumber: string;
   email: string;
 }
+
+export interface FindAllContactsResponse {
+  data: Contact[] | [];
+  totalItems: number;
+  totalPages: number;
+  hasMore: boolean;
+}

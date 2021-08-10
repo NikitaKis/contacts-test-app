@@ -2,7 +2,8 @@ import { Contact } from './contact.types';
 
 interface FindAllContactsResponse {
   data: Contact[] | [];
-  total: number;
+  totalItems: number;
+  totalPages: number;
   hasMore: boolean;
 }
 
