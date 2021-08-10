@@ -3,7 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 
-import { contactsRouter } from 'routes';
+import contactsRouter from 'routes/contacts.router';
 import { fillDBWithFakeData } from 'models/fakeDB';
 import AppError from 'utils/appError';
 

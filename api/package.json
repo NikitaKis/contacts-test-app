@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --pretty --transpile-only -r tsconfig-paths/register src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:pm2": "pm2 start ecosystem.config.js --no-daemon"
   },
   "keywords": [],
   "author": "Nikita Kiselev",
@@ -17,7 +19,8 @@
     "express": "^4.17.1",
     "express-validator": "^6.12.1",
     "faker": "^5.5.3",
-    "helmet": "^4.6.0"
+    "helmet": "^4.6.0",
+    "tscpaths": "^0.0.9"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

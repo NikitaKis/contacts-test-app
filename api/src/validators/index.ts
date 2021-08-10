@@ -1,3 +1,3 @@
-import * as contactValidator from './contact';
+import * as contactValidator from './contact.validator';
 
 export { contactValidator };

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { BaseContact, Contact } from 'types/contact.types';
-import { contactsService } from 'services';
+import * as contactsService from 'services/contacts.service';
 import { formatSuccessResponse } from './helpers';
 import catchAsync from 'utils/catchAsync';
 import AppError from 'utils/appError';

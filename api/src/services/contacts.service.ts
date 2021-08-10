@@ -1,4 +1,4 @@
-import { contactsModel } from 'models';
+import * as contactsModel from 'models/contact.model';
 import { BaseContact, Contact, ContactId } from 'types/contact.types';
 
 const create = async (contact: BaseContact): Promise<Contact> => contactsModel.create(contact);

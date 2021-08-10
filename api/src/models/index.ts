@@ -1,3 +1,3 @@
-import * as contactsModel from './contacts.model';
+import * as contactModel from './contact.model';
 
-export { contactsModel };
+export { contactModel };
