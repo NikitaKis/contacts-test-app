@@ -5,7 +5,7 @@ import contacts from './fakeDB';
 const findIndexById = (id: ContactId): number => contacts.findIndex((item) => item.id === id);
 
 const create = async (newContact: BaseContact): Promise<Contact> => {
-  const newId = contacts.length;
+  const newId = Math.max(...contacts.map((item) => item.id)) + 1;
   const contact = {
     id: newId,
     ...newContact,
@@ -20,7 +20,7 @@ const findAll = async (page: number, pageSize: number): Promise<FindAllContactsR
   const totalItems = contacts.length;
   const lastItemIndex = totalItems - 1;
   const startIndex = page * pageSize;
-  const endIndex = Math.min(lastItemIndex, startIndex + pageSize);
+  const endIndex = Math.min(lastItemIndex + 1, startIndex + pageSize);
   const data = startIndex <= lastItemIndex ? contacts.slice(startIndex, endIndex) : [];
   const hasMore = startIndex < lastItemIndex && endIndex < lastItemIndex;
   const totalPages = Math.ceil(contacts.length / pageSize);
