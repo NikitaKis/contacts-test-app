@@ -17,22 +17,12 @@ function Table({ columns, data, onNextPage, hasMore, onPrevPage, page, totalPage
 
   return (
     <>
-      <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
+      <table {...getTableProps()} style={{ border: 'solid 1px gray', width: '1200px' }}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps()}
-                  style={{
-                    borderBottom: 'solid 3px red',
-                    background: 'aliceblue',
-                    color: 'black',
-                    fontWeight: 'bold',
-                  }}
-                >
-                  {column.render('Header')}
-                </th>
+                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
               ))}
             </tr>
           ))}
@@ -48,8 +38,6 @@ function Table({ columns, data, onNextPage, hasMore, onPrevPage, page, totalPage
                       {...cell.getCellProps()}
                       style={{
                         padding: '10px',
-                        border: 'solid 1px gray',
-                        background: 'papayawhip',
                       }}
                     >
                       {cell.render('Cell')}
@@ -62,13 +50,15 @@ function Table({ columns, data, onNextPage, hasMore, onPrevPage, page, totalPage
         </tbody>
       </table>
       <br />
-      <button onClick={onPrevPage} disabled={page <= 0}>
-        {'<'}
-      </button>
-      {`  Page ${page + 1} of ${totalPages}  `}
-      <button onClick={onNextPage} disabled={!hasMore}>
-        {'>'}
-      </button>
+      <div className='buttonsContainer'>
+        <button onClick={onPrevPage} disabled={page <= 0}>
+          {'<'}
+        </button>
+        {`  Page ${page + 1} of ${totalPages}  `}
+        <button onClick={onNextPage} disabled={!hasMore}>
+          {'>'}
+        </button>
+      </div>
     </>
   );
 }

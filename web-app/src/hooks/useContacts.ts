@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { contacts as api } from '../api';
 import constants from '../constants';
-import { ContactId, DataQueryKey, FindAllContactsResponse } from '../types/data';
+import { Contact, ContactId, DataQueryKey, FindAllContactsResponse } from '../types/data';
 import { queryClient } from '../App';
 const transformData = (data: FindAllContactsResponse): FindAllContactsResponse => data;
 
@@ -21,10 +21,16 @@ const removeContact = async (contactId: ContactId) => {
   queryClient.invalidateQueries();
 };
 
+const updateContact = async (contact: Contact) => {
+  await api.updateContact(contact.id, contact);
+  queryClient.invalidateQueries();
+};
+
 const useContacts = (page: number, pageSize: number) => {
   return {
     ...useQuery(queryParams(page, pageSize)),
     removeContact,
+    updateContact,
   };
 };
 
