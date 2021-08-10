@@ -1,24 +1,23 @@
 import { useQuery } from 'react-query';
-import { contacts as api } from 'api';
-import { DataQueryKey } from 'types';
+import { contacts as api } from '../api';
 import constants from '../constants';
-import { Contact } from '../types/data';
+import { DataQueryKey, Contact } from '../types/data';
 
-const transformData = (contacts: Contact[]): TransformedAdvisories => contacts;
+const transformData = (contacts: Contact[]): Contact[] => contacts;
 
-export const advisoriesQueryParams = () => {
+export const queryParams = () => {
   return {
-    queryKey: DataQueryKey.Advisories,
+    queryKey: DataQueryKey.Contacts,
     queryFn: async () => {
-      const data = await api.getAdvisories();
+      const data = await api.getContacts();
       return transformData(data.data);
     },
     staleTime: constants.CACHE_TIME_MSEC,
   };
 };
 
-const useAdvisories = () => {
-  return useQuery(advisoriesQueryParams());
+const useContacts = () => {
+  return useQuery(queryParams());
 };
 
-export default useAdvisories;
+export default useContacts;
