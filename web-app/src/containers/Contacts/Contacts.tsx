@@ -1,16 +1,17 @@
 import { useState, useMemo, useCallback } from 'react';
-import Table from './Table';
 
-import useContacts from '../../hooks/useContacts';
-import { Address, BaseContact, Contact, ContactId } from '../../types/data';
 import './styles.css';
-import { EditContact } from './EditContact';
+import Table from './Table';
+import useContacts from '../../hooks/useContacts';
 import { AddContact } from './AddContact';
+import { Address, BaseContact, Contact, ContactId } from '../../types/data';
+import { EditContact } from './EditContact';
 
 const addressToString = (address: Address) => {
   const { houseNumber, streetName, city, stateProvince } = address;
   return `${houseNumber}, ${streetName}, ${city}, ${stateProvince}`;
 };
+
 const Contacts = (): JSX.Element | null => {
   const [page, setPage] = useState(0);
   //const [pageSize, setPageSize] = useState(10); //TODO: add changing page size
@@ -85,8 +86,8 @@ const Contacts = (): JSX.Element | null => {
       {
         Header: 'Action',
         id: 'delete',
-        //@ts-ignore
-        Cell: (row) => (
+
+        Cell: (row: { row: { original: Contact } }) => (
           <>
             <button className='button' onClick={() => onEdit(row.row.original)}>
               Edit

@@ -3,6 +3,7 @@ import { contacts as api } from '../api';
 import constants from '../constants';
 import { BaseContact, ContactId, DataQueryKey, FindAllContactsResponse } from '../types/data';
 import { queryClient } from '../App';
+
 const transformData = (data: FindAllContactsResponse): FindAllContactsResponse => data;
 
 export const queryParams = (page: number, pageSize: number) => {
@@ -10,7 +11,6 @@ export const queryParams = (page: number, pageSize: number) => {
     queryKey: [DataQueryKey.Contacts, page],
     queryFn: async () => {
       const data = await api.getContacts(page, pageSize);
-      console.log('🚀 ~ file: useContacts.ts ~ line 13 ~ queryFn: ~ data', data);
       return transformData(data.data.data);
     },
     staleTime: constants.CACHE_TIME_MSEC,
