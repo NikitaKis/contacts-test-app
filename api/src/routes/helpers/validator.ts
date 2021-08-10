@@ -14,7 +14,14 @@ const validate = (validations: ValidationChain[]) => {
     if (errors.isEmpty()) {
       return next();
     }
-    next(new AppError(errors.array().join(', '), 400));
+    const error = new AppError(errors.array().join(', '), 400, errors.array());
+    return res.status(error.statusCode || 500).send({
+      error: {
+        status: error.status || 500,
+        message: error.message || 'Internal Server Error',
+        errors: error.errors,
+      },
+    });
   };
 };
 
