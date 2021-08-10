@@ -5,6 +5,7 @@ import * as contactsService from 'services/contacts.service';
 import { formatSuccessResponse } from './helpers';
 import catchAsync from 'utils/catchAsync';
 import AppError from 'utils/appError';
+import { FindAllContactsResponse } from 'types/response.types';
 
 const create = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const contact: BaseContact = req.body;
@@ -21,9 +22,11 @@ const find = catchAsync(async (req: Request, res: Response, next: NextFunction) 
 });
 
 const findAll = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-  const contacts: Contact[] = await contactsService.findAll();
-  if (!contacts) return next(new AppError('Contacts not found', 404));
-  res.status(200).send(formatSuccessResponse(contacts));
+  const page = +`${req?.query?.page}` || 1;
+  const pageSize = +`${req?.query?.pageSize}` || 10;
+  const result: FindAllContactsResponse = await contactsService.findAll(page, pageSize);
+  if (!result) return next(new AppError('Contacts not found', 404));
+  res.status(200).send(formatSuccessResponse(result));
 });
 
 const remove = catchAsync(async (req: Request, res: Response, next: NextFunction) => {

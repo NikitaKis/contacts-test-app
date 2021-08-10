@@ -1,4 +1,5 @@
 import { BaseContact, Contact, ContactId } from 'types/contact.types';
+import { FindAllContactsResponse } from 'types/response.types';
 import contacts from './fakeDB';
 
 const findIndexById = (id: ContactId): number => contacts.findIndex((item) => item.id === id);
@@ -15,7 +16,15 @@ const create = async (newContact: BaseContact): Promise<Contact> => {
 
 const find = async (id: ContactId): Promise<Contact | undefined> => contacts.find((item: Contact) => item.id === id);
 
-const findAll = async (): Promise<Contact[]> => contacts;
+const findAll = async (page: number, pageSize: number): Promise<FindAllContactsResponse> => {
+  const total = contacts.length;
+  const lastItemIndex = total - 1;
+  const startIndex = (page - 1) * pageSize;
+  const endIndex = Math.min(lastItemIndex, startIndex + pageSize);
+  const data = startIndex <= lastItemIndex ? contacts.slice(startIndex, endIndex) : [];
+  const hasMore = startIndex <= lastItemIndex && endIndex <= lastItemIndex;
+  return { data, total, hasMore };
+};
 
 const remove = async (id: ContactId): Promise<boolean> => {
   const removeIndex = findIndexById(id);

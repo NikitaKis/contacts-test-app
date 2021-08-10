@@ -1,10 +1,16 @@
 import { Contact } from './contact.types';
 
-type ResponseData = Contact | Contact[] | string;
+interface FindAllContactsResponse {
+  data: Contact[] | [];
+  total: number;
+  hasMore: boolean;
+}
+
+type ResponseData = Contact | Contact[] | string | FindAllContactsResponse;
 
 type SuccessResponse = {
   success: boolean;
   data: ResponseData;
   errors: [];
 };
-export { ResponseData, SuccessResponse };
+export { FindAllContactsResponse, ResponseData, SuccessResponse };
