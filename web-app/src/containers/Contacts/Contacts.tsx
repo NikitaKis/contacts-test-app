@@ -84,7 +84,7 @@ const Contacts = (): JSX.Element | null => {
         Cell: (row) => <span>{`${addressToString(row.row.original.address)}`}</span>,
       },
       {
-        Header: 'Action',
+        Header: 'Actions',
         id: 'delete',
 
         Cell: (row: { row: { original: Contact } }) => (
@@ -103,7 +103,7 @@ const Contacts = (): JSX.Element | null => {
   );
 
   const tableData = useMemo(() => {
-    if (!data) return [];
+    if (!data || !data.data) return [];
     return data.data.map((item) => item);
   }, [data]);
 

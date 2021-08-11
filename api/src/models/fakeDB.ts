@@ -2,7 +2,7 @@ import { Contact } from 'types/contact.types';
 import { address, name, phone, internet } from 'faker';
 
 const contacts: Contact[] = [];
-const CONTACTS_SIZE = 100;
+const CONTACTS_SIZE = 200;
 
 const fakeContact = (id: number): Contact => ({
   id,

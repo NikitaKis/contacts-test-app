@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  web-app:
+    container_name: contact-web-app
+    build:
+      context: ./web-app
+      dockerfile: Dockerfile
+    volumes:
+      - '/app/node_modules'
+    ports:
+      - 3000:3000
+    networks:
+      - my-network
+  api:
+    container_name: contact-api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    volumes:
+      - '/app/node_modules'
+    ports:
+      - 8000:8000
+    networks:
+      - my-network
+networks:
+  my-network:
+    driver: bridge

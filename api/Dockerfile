@@ -1,4 +1,4 @@
-ARG PORT=3000
+ARG PORT=8000
 FROM node:14-alpine AS node
 ENV NODE_ENV production
 RUN apk --no-cache -U upgrade
@@ -9,5 +9,6 @@ COPY package*.json ./
 USER node
 RUN npm i --only=production
 COPY --chown=node:node . ./
+RUN npm run build
 EXPOSE ${PORT}
 ENTRYPOINT [ "pm2-runtime", "start", "ecosystem.config.js"]
