@@ -9,5 +9,4 @@ It's a backend for contacts project.
 ### Docker
 
 build image - `docker build . -t node/contact-api`
-run - `docker run -p 8000:3000 node/contact-api`
-s
+run - `docker run -p 8000:8000 node/contact-api`
